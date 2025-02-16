@@ -20,7 +20,7 @@ RUN apt-get update && \
 
 # Add OpenFOAM environment setup to .bashrc
 RUN echo ". /opt/openfoam11/etc/bashrc" >> /root/.bashrc
-
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y screen
 # Set bash as the default shell and source .bashrc on container start
 SHELL ["/bin/bash", "-c"]
 ENTRYPOINT ["/bin/bash", "-l"]
