@@ -18,12 +18,20 @@ RUN sh -c 'echo "deb http://dl.openfoam.org/ubuntu $(lsb_release -cs) main" > /e
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y openfoam11
 
-# Add OpenFOAM environment setup to .bashrc
+# Add OpenFOAM environment setup to root and user .bashrc
 RUN echo ". /opt/openfoam11/etc/bashrc" >> /root/.bashrc
+
+# Create non-root user with home directory
+RUN useradd -m -s /bin/bash user && \
+    echo ". /opt/openfoam11/etc/bashrc" >> /home/user/.bashrc
+
+# Install screen
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y screen
-# Set bash as the default shell and source .bashrc on container start
+
+# Set default user and working directory
+USER user
+WORKDIR /home/user
+
+# Set bash as default shell with login environment
 SHELL ["/bin/bash", "-c"]
 ENTRYPOINT ["/bin/bash", "-l"]
-
-
-
