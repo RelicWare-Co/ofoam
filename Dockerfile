@@ -27,6 +27,8 @@ RUN useradd -m -s /bin/bash user && \
 
 # Install screen
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y screen
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y sudo && \
+    echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Set default user and working directory
 USER user
