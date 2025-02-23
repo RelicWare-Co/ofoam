@@ -26,7 +26,7 @@ RUN useradd -m -s /bin/bash user && \
     echo ". /opt/openfoam11/etc/bashrc" >> /home/user/.bashrc
 
 # Install screen
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y screen
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y screen htop nano
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y sudo && \
     echo "user ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
